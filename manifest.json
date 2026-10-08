@@ -1,0 +1,24 @@
+{
+  "name": "LIONBEAT Performance System",
+  "short_name": "LIONBEAT",
+  "description": "Plataforma de programación y seguimiento del rendimiento deportivo.",
+  "lang": "es",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#08090B",
+  "theme_color": "#08090B",
+  "icons": [
+    {
+      "src": "asset/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "asset/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

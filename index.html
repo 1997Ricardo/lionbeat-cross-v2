@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>LIONBEAT Performance System</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#08090B">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LIONBEAT">
+    <link rel="apple-touch-icon" href="asset/logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variable.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+</head>
+<body>
+
+    <noscript>
+        <div style="background-color: #08090B; color: #FF1838; padding: 40px; text-align: center; font-family: 'Inter', sans-serif; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h1 style="font-family: 'Oswald', sans-serif; font-size: 24px; margin-bottom: 16px;">JAVASCRIPT DESHABILITADO</h1>
+            <p style="color: #ffffff; font-size: 14px; max-width: 400px;">LIONBEAT Performance System necesita JavaScript habilitado para gestionar tus entrenamientos.</p>
+        </div>
+    </noscript>
+
+    <main id="app">
+        <div class="initial-loader-container">
+            <div class="loader"></div>
+            <p class="initial-loader-text" style="margin-top: 16px;">LIONBEAT PERFORMANCE SYSTEM</p>
+        </div>
+    </main>
+
+    <div id="toast-container" aria-live="polite"></div>
+
+    <script defer src="js/auth.js"></script>
+    <script defer src="js/api.js"></script>
+    <script defer src="js/app.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => {
+                        console.log('✅ SW Registrado:', reg.scope);
+
+                        // Comprobar si hay una actualización pendiente del Service Worker
+                        reg.addEventListener('updatefound', () => {
+                            const newWorker = reg.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('🔄 Nueva versión de LionBeat disponible. Se aplicará al reiniciar.');
+                                }
+                            });
+                        });
+                    })
+                    .catch(err => console.error('❌ Error SW:', err));
+            });
+        }
+    </script>
+</body>
+</html>
